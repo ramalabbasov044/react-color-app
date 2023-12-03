@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-key */
 import Header from '../../components/Static/Header/index'
 import PageTitle from '../../components/Static/PageTitle/index'
 import Button from '../../components/Static/Button/index'

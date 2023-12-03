@@ -8,7 +8,7 @@ const CardComponent = ({ colorsData }) => {
     <>
         {
             colorsData?.map((item) => (
-                <Card style={{background: item.code}}>
+                <Card style={{background: "#" + item.code}}>
                     {
                         item.name
                     }
