@@ -6,12 +6,15 @@ import Card from '../../components/Static/Card/index'
 
 const Home = () => {
   const { colorsData } = useGlobalStore()
+
   return (
     <Wrapper>
         <Header />
 
         <Container>
             <PageTitle title={"Home Page"} />
+
+            <PageTitle title={colorsData ? "" : "Hec bir dataniz yoxdur"} />
 
             <CardName>
               {
