@@ -3,42 +3,39 @@ import { useGlobalStore } from '../../provider/provider'
 import Header from '../../components/Static/Header/index'
 import styled from 'styled-components'
 import Card from '../../components/Static/Card/index'
-import { useEffect, useState } from 'react'
 
 const Home = () => {
-  const { colorsData } = useGlobalStore()
+    const { colorsData } = useGlobalStore()
+    
+    return (
+      <Wrapper>
+          <Header />
 
-// localStorage.setItem('data',JSON.stringify(colorsDataStorage))
-// let a = localStorage.getItem('data')
-  return (
-    <Wrapper>
-        <Header />
+          <Container>
+              <PageTitle title={"Home Page"} />
 
-        <Container>
-            <PageTitle title={"Home Page"} />
+              <PageTitle title={colorsData ? "" : "Hec bir dataniz yoxdur"} />
 
-            <PageTitle title={colorsData ? "" : "Hec bir dataniz yoxdur"} />
-
-            {
-              colorsData.map((item) => (
-                  <div key={item.name}>
-                      <CardName>
-                          {
-                            item.name
-                          }
-                      </CardName>
-                      <CardBody>
-                          <Card colorsData={item.colors} />
-                      </CardBody>
-                  </div>
-              ))
-            }
+              {
+                colorsData.map((item) => (
+                    <div key={item.name}>
+                        <CardName>
+                            {
+                              item.name
+                            }
+                        </CardName>
+                        <CardBody>
+                            <Card colorsData={item.colors} />
+                        </CardBody>
+                    </div>
+                ))
+              }
 
 
-            
-        </Container>
-    </Wrapper>
-  )
+              
+          </Container>
+      </Wrapper>
+    )
 }
 
 export default Home

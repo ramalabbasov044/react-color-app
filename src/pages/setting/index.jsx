@@ -12,7 +12,7 @@ import { useState } from 'react'
 
 const Setting = () => {
     const navigate = useNavigate()
-    const { setColorsData , colorsData } = useGlobalStore()
+    const { setColorsData } = useGlobalStore()
 
     // states
     const [data,setData] = useState([])
@@ -23,7 +23,7 @@ const Setting = () => {
     const handleInputChange = (name, value) => {
       setColorData((prevData) => ({
         ...prevData,
-        [name]: value,
+        [name]: value
       }));
     };
 
@@ -60,6 +60,7 @@ const Setting = () => {
     const removeImage = (index) => {
       setData(data.filter((item,i) => i !== index));
     }
+
     return (
         <Wrapper>
           <Header />
@@ -87,6 +88,7 @@ const Setting = () => {
                           value={colorData.code} 
                           onInputChange={handleInputChange} 
                       />
+
                   </InputsBody>
 
                   <ButtonBody>
