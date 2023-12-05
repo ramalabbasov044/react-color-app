@@ -1,6 +1,7 @@
 const Router = {
     home: "/",
-    setting: "/setting"
+    setting: "/setting",
+    product: "/product",
 }
 
 export default Router

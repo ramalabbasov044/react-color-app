@@ -11,12 +11,15 @@ export const useGlobalStore = () => {
 // eslint-disable-next-line react/prop-types
 const Provider = ({ children }) => {
     // eslint-disable-next-line no-unused-vars
-    const [colorsData,setColorsData] = useState([])
+    const [colorsData, setColorsData] = useState([])
+    const [activeItem, setActiveItem] = useState([])
     const Component = globalContext.Provider
     
     const values = {
         colorsData,
         setColorsData,
+        setActiveItem,
+        activeItem
     }
 
     return (
