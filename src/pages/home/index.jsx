@@ -3,10 +3,13 @@ import { useGlobalStore } from '../../provider/provider'
 import Header from '../../components/Static/Header/index'
 import styled from 'styled-components'
 import Card from '../../components/Static/Card/index'
+import { useEffect, useState } from 'react'
 
 const Home = () => {
   const { colorsData } = useGlobalStore()
 
+// localStorage.setItem('data',JSON.stringify(colorsDataStorage))
+// let a = localStorage.getItem('data')
   return (
     <Wrapper>
         <Header />
@@ -16,14 +19,23 @@ const Home = () => {
 
             <PageTitle title={colorsData ? "" : "Hec bir dataniz yoxdur"} />
 
-            <CardName>
-              {
-                colorsData?.name
-              }
-            </CardName>
-            <CardBody>
-              <Card colorsData={colorsData?.colors} />
-            </CardBody>
+            {
+              colorsData.map((item) => (
+                  <div key={item.name}>
+                      <CardName>
+                          {
+                            item.name
+                          }
+                      </CardName>
+                      <CardBody>
+                          <Card colorsData={item.colors} />
+                      </CardBody>
+                  </div>
+              ))
+            }
+
+
+            
         </Container>
     </Wrapper>
   )

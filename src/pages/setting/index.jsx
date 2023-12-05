@@ -12,7 +12,7 @@ import { useState } from 'react'
 
 const Setting = () => {
     const navigate = useNavigate()
-    const { setColorsData } = useGlobalStore()
+    const { setColorsData , colorsData } = useGlobalStore()
 
     // states
     const [data,setData] = useState([])
@@ -50,13 +50,16 @@ const Setting = () => {
             name: groupName,
             colors: data
         }
-        setColorsData(obj)
+        setColorsData((prev) => [...prev,obj])
         navigate("/")
     }
 
     let arr = Object.values(colorData)
     let isDisabled = arr.every(item => item !== "")
-    
+
+    const removeImage = (index) => {
+      setData(data.filter((item,i) => i !== index));
+    }
     return (
         <Wrapper>
           <Header />
@@ -89,7 +92,7 @@ const Setting = () => {
                   <ButtonBody>
                       <Button 
                           disabled={ !isDisabled }
-                          title={"Log in"} 
+                          title={"Save Colors"} 
                           callFormData={callFormData}
                       />
                   </ButtonBody>
@@ -114,11 +117,18 @@ const Setting = () => {
 
                     <ColorsCardBody>
                       {
-                        data.map((item) => (
-                          <Card style={{background: "#" + item.code}}>
+                        data.map((item,index) => (
+                          <Card style={{background: item.code}}>
                             {
                               item.name
                             }
+                            <DeleteButton onClick={() => removeImage(index)}>
+                                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21Z" fill="#FF4F4F"/>
+                                    <path d="M15 9L9 15" stroke="white" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+                                    <path d="M15 15L9 9" stroke="white" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+                                  </svg>
+                            </DeleteButton>
                           </Card>
                         ))
                       }
@@ -187,10 +197,11 @@ const ColorsCardBody = styled.div`
 const Card = styled.div`
     width: 100%;
     height: 120px;
-    border-radius: 20px;
+    border-radius: 10px;
     padding: 20px;
     color: darkgray;
     border: 1px solid darkgray;
+    position: relative;
 `
 
 const GroupNameInput = styled.input`
@@ -262,4 +273,15 @@ const SaveAllDataButton = styled.button`
       height: 30px;
       background: #a399e7;
     }
+`
+
+const DeleteButton = styled.button`
+    position: absolute;
+    border: 0;
+    background: transparent;
+    width: 24px;
+    height: 24px;
+    top: -10px;
+    right: -10px;
+    cursor: pointer;
 `

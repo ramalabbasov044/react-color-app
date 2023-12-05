@@ -3,19 +3,19 @@
 import styled from 'styled-components'
 
 const CardComponent = ({ colorsData }) => {
+    console.log(colorsData);
 
   return (
     <>
         {
             colorsData?.map((item) => (
-                <Card style={{background: "#" + item.code}}>
+                <Card style={{background:item.code}}>
                     {
                         item.name
                     }
                 </Card>
             ))
         }
-        
     </>
   )
 }
