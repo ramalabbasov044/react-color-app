@@ -2,9 +2,19 @@ import { useGlobalStore } from '../../provider/provider'
 import Header from '../../components/Static/Header/index'
 import styled from 'styled-components'
 import { useNavigate } from 'react-router-dom'
+import { useEffect } from 'react'   
 const ProductPage = () => {
     const { activeItem } = useGlobalStore()
     const navigate = useNavigate()
+
+    useEffect(() => {
+        if(activeItem.length == 0){
+            navigate("/setting")
+            console.log("a");
+        }else{
+            navigate("/product")
+        }
+    },[activeItem])
     return (
         <>
             <Header />
@@ -14,11 +24,11 @@ const ProductPage = () => {
             <CardBody>
                 
                 {
-                <Card style={{background:activeItem.code}}>
-                        {
-                            activeItem.name
-                        }
-                </Card>
+                    <Card style={{background:activeItem.code}}>
+                            {
+                                activeItem.name
+                            }
+                    </Card>
                 }
             </CardBody>
         </>
