@@ -129,6 +129,11 @@ const Setting = () => {
                           Save
                       </SaveButton>
                   </GroupNameForm>
+
+
+                  <ClearAllDataButton onClick={() => setData([])}>
+                        Clear All Data
+                    </ClearAllDataButton>
                 </CreateColorForm>
 
                 <ShowColorForm>
@@ -306,3 +311,20 @@ const DeleteButton = styled.button`
     right: -10px;
     cursor: pointer;
 `
+
+const ClearAllDataButton = styled.button`
+    width: 100%;
+    padding: 7px 0px;
+    border-radius: 4px;
+    background:#433798;
+    border: 0;
+    color: #FFF;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    cursor: pointer;
+    height: 37px;
+    transition: .7s;
+    margin-top: 10px;
+` 
