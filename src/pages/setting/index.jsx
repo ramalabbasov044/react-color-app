@@ -3,28 +3,39 @@ import Header from '../../components/Static/Header/index'
 import PageTitle from '../../components/Static/PageTitle/index'
 import Button from '../../components/Static/Button/index'
 import Input from '../../components/Static/Input/index'
-import { useGlobalStore } from '../../provider/provider'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom'
+import ColorPicker from 'react-pick-color';
 import styled from 'styled-components'
 import { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { setColor } from '../../store/setColor'
+
 
 const Setting = () => {
     const navigate = useNavigate()
-    const { setColorsData } = useGlobalStore()
+    const dispatch = useDispatch()
 
     // states
     const [data,setData] = useState([])
     const [colorData, setColorData] = useState({ name: '' , code: '' });
     const [groupName, setGroupName] = useState("")
     const [name,setName] = useState("")
+    const [code, setCode] = useState('');
 
     const handleInputChange = (name, value) => {
-      setColorData((prevData) => ({
-        ...prevData,
-        [name]: value
-      }));
+      if (name === 'code') {
+        setColorData((prevData) => ({
+          ...prevData,
+          code: value
+        }));
+      } else {
+        setColorData((prevData) => ({
+          ...prevData,
+          [name]: value
+        }));
+      }
     };
 
     const callFormData = () => {
@@ -32,7 +43,7 @@ const Setting = () => {
           setData((prevData) => [...prevData, colorData]);
           setColorData({ name: '', code: '' });
       }else{
-         toast("Maksimum reng sayi 6-ya beraber ola bilər")
+         toast.error("Maksimum reng sayi 6-ya beraber ola bilər")
          setColorData({ name: '', code: '' });
       }
     }
@@ -50,7 +61,7 @@ const Setting = () => {
             name: groupName,
             colors: data
         }
-        setColorsData((prev) => [...prev,obj])
+        dispatch(setColor(obj))
         navigate("/")
     }
 
@@ -87,6 +98,14 @@ const Setting = () => {
                           placeholder={"Color Code"} 
                           value={colorData.code} 
                           onInputChange={handleInputChange} 
+                      />
+
+                      <ColorPicker 
+                        color={code} 
+                        onChange={(color) => {
+                          setCode(color.hex);
+                          handleInputChange('code', color.hex); 
+                        }} 
                       />
 
                   </InputsBody>

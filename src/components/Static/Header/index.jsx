@@ -16,7 +16,7 @@ const Header = () => {
                         Home
                     </ListItem>
                     <ListItem onClick={() => navigate("/setting")}>
-                        Setting
+                        Create
                     </ListItem>
                   </ListBody>
               </Navbar>

@@ -16,7 +16,7 @@ const PageTitle = ({ title }) => {
 export default PageTitle
 
 const Title = styled.p` 
-    color: #221c50;
+    color: #fff;
     font-weight: 500;
     font-size: 38px;
     margin-bottom: 15px;

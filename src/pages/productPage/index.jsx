@@ -1,34 +1,54 @@
-import { useGlobalStore } from '../../provider/provider'
+/* eslint-disable react/jsx-key */
 import Header from '../../components/Static/Header/index'
 import styled from 'styled-components'
 import { useNavigate } from 'react-router-dom'
-import { useEffect } from 'react'   
-const ProductPage = () => {
-    const { activeItem } = useGlobalStore()
-    const navigate = useNavigate()
+import { useSelector } from 'react-redux'
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css'
 
-    useEffect(() => {
-        if(activeItem.length == 0){
-            navigate("/setting")
-            console.log("a");
-        }else{
-            navigate("/product")
-        }
-    },[activeItem])
+const ProductPage = () => {
+    const navigate = useNavigate()
+    const colorDetail = useSelector((state) => state.colors.colorDetail)
+    console.log(colorDetail);
+    // useEffect(() => {
+    //     if(activeItem.length == 0){
+    //         navigate("/setting")
+    //         console.log("a");
+    //     }else{
+    //         navigate("/product")
+    //     }
+    // },[activeItem])
+
+    const copyColorCodeF = (code) => {
+        navigator.clipboard.writeText(code);
+        toast.success("Copied to Clipboard: " + code);
+    }
     return (
-        <>
+        <>      
+            <ToastContainer />
+
             <Header />
-            <GoBackButton onClick={() => navigate(-1)} style={{background:activeItem.code}}>
+
+            <GoBackButton onClick={() => navigate(-1)} >
                 Go Back
             </GoBackButton>   
+
             <CardBody>
-                
                 {
-                    <Card style={{background:activeItem.code}}>
-                            {
-                                activeItem.name
-                            }
-                    </Card>
+                    colorDetail.colors.map((item) => (
+                        <CardItem>
+                            <Card style={{background: item.code}}>
+                                <CardTitle>
+                                    {
+                                        item.name
+                                    }
+                                </CardTitle>
+                                <CopiedTitle onClick={() => copyColorCodeF(item.code)}>
+                                    Copy Color
+                                </CopiedTitle>
+                            </Card>
+                        </CardItem>
+                    ))
                 }
             </CardBody>
         </>
@@ -37,23 +57,34 @@ const ProductPage = () => {
 
 export default ProductPage
 
+const CardItem = styled.div`
+    display: flex;
+    flex-direction: column;
+`
+
 const Card = styled.div`
+    position: relative;
     display:flex;
     justify-content: center;
     align-items: center;
     text-align: center;
     border-radius: 20px;
-    width: 800px;
+    width: 100%;
     height: 400px;
     color: #fff;
-    margin-top: 40px;
-    font-size: 30px;
+`
+
+const CardTitle = styled.p`
+    font-weight: 500;
+    font-size: 28px;
 `
 
 const CardBody = styled.div`
     width: 100%;
-    display: flex;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    padding: 100px;
+    gap: 20px;
 `
 
 const GoBackButton = styled.div`
@@ -63,5 +94,14 @@ const GoBackButton = styled.div`
     margin-top: 20px;
     color: #fff;
     border-radius: 20px;
+    cursor: pointer;
+    background: blue;
+`
+
+const CopiedTitle = styled.p`
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 20px;
     cursor: pointer;
 `
